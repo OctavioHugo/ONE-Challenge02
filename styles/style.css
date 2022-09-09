@@ -1,0 +1,214 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+   font-family: 'Inter'; 
+   background-color: #F3F5FC;
+/*    width: 100vw;
+   height: 100vh; */
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+}
+
+.logo{
+    padding: 1.5em 0 0 1em;
+}
+
+/*CSS Home*/
+
+.home{
+    display: flex;
+    padding: 0 1.8125em;
+
+    height: 80.2vh;
+}
+
+.buttonsHome{
+    margin: 0 auto;
+    margin-top: 13.0625em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;   
+}
+
+.startGame{
+    padding: 3em;
+    border-radius: 1.5em;
+    background-color: #0A3871;
+    border: none;
+    color: #FFFFFF;
+    font-family: inherit;
+}
+
+.addWord{
+    margin: 0 1.1875em;
+    padding: 1.5em;
+    border-radius: 1.5em;
+    background-color: transparent;
+    border-color: #0A3871;
+    border-width: 1px;
+    color: #0A3871;
+    font-family: inherit;
+}
+
+
+/*CSS dictionary y botones de game */
+
+.dictionary{
+    display: none;
+    flex-direction: column;
+    padding: 5em 1em 0 1em;
+}
+
+.inputText{
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 2em;
+    line-height: 150%;
+    resize: none;
+    color: #0A3871;
+    text-transform: uppercase;
+}
+
+::placeholder {
+    color: #0A3871;
+}
+
+.information {
+    padding-top: 15.6875em;
+    height: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 0.75em;
+    font-weight: 400;
+}
+
+.i{
+    padding-right: 0.5em;
+}
+
+.buttons{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+       
+}
+
+.saveAndStart, .newGame{
+    padding: 1.5em;
+    border-radius: 1.5em;
+    background-color: #0A3871;
+    border: none;
+    color: #FFFFFF;
+    font-family: inherit;
+}
+
+.cancel, .desist{
+    padding: 1.5em;
+    border-radius: 1.5em;
+    background-color: transparent;
+    border-color: #0A3871;
+    border-width: 1px;
+    color: #0A3871;
+    font-family: inherit;
+}
+
+/*CSS game*/
+
+.game{
+    display: none;
+    flex-direction: column;
+    padding: 0 2.25em;
+
+}
+
+
+.ahorcado{
+    padding-top: 3em;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.horca{
+    margin-top: 4rem;
+    width: 16.79rem;
+    height: 21.94rem;
+}
+
+.letters{
+    margin-top: 2.5rem;
+    width: 19rem;
+    height: 7.25rem;
+}
+
+footer{
+    margin-top: 1em;
+    padding: 0;
+}
+
+/* Responsive Tablet*/
+
+@media only screen and (min-width: 768px){
+    
+    .logo{
+        padding: 4.5625em 0 0 2.5em;
+    }
+
+    .dictionary{
+        padding: 7.375em 2.5em 0 2.5em;
+    }
+
+    .information {
+        padding-top: 37.25em;
+    }
+
+    .letters{
+        margin-top: 2.8125em;   
+    }
+
+    .buttons{
+        flex-direction: row;
+    }
+    
+    .saveAndStart, .newGame{
+        width: 50%;
+    }
+    
+    .cancel, .desist{
+        width: 50%;
+    }
+
+
+}
+
+@media only screen and (min-width: 1024px){
+
+    .logo{
+        padding: 2.5em 0 0 5.25em;
+    }
+
+    .dictionary{
+        padding: 9em 21.5em 0 21.5em;
+    }
+
+    .information {
+        padding-top: 18.6875em;
+    }
+    
+
+    .game{
+        padding: 0 18em;
+    }
+
+}

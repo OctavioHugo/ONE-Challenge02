@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Spring 2 - Oracle Next Education</title>
+</head>
+<body>
+    <header class="logo">
+        <img  src="./images/logo.png" alt=""> 
+    </header>
+
+    <main>
+
+        <section class="home">
+
+            
+            <div class="buttonsHome">
+                <button class="startGame">Iniciar juego</button>
+                <button class="addWord">Agragar nueva palabra</button>
+            </div>
+            
+        </section>
+        
+        <section class="dictionary">
+
+            <input class="inputText" type="text" placeholder="Ingrese una palabra"  onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="8">
+
+            <div class="information">
+                <img class="i" src="./images/admiration.png" alt="">
+                <p class="i-text">Max. de 8 letras</p> 
+            </div>
+
+            <div class="buttons">
+                <button class="saveAndStart">Guardar y empezar</button>
+                <button class="cancel">Cancelar</button>
+            </div>
+
+        </section>
+
+        <section class="game">
+            <div class="ahorcado">
+                <div>
+                    <canvas style="background-color: green;" class="horca"></canvas>
+                </div>
+                <div >
+                    <canvas style="background-color: pink;" class="letters"></canvas>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="newGame">Nuevo juego</button>
+                <button class="desist">Desistir</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="background-color: blue;">
+        <p>Oracle Next Education + Alura Latam <span class="footer_dash">-</span> CHALLENGE 2 - Octavio Hugo Bressan
+    </footer>
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
