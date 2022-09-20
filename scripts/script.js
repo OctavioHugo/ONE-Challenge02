@@ -34,6 +34,37 @@ window.onload = settings;
 
 var words = ['SPRING', 'DOS', 'ORACLE', 'DAME', 'TRABAJO', 'POR', 'FAVOR'];
 var secretWord = '';
+let succes = 0;
+let mistake = 0;
+let selectedLetter = [];
+
+/*Función de administracion del juego*/
+
+function gameManage(event) {
+    const inputGame = document.querySelector('#inputAhorcado');
+    inputGame.value = '';
+    let letter = '';
+    
+    if (isALetter(event.data.toUpperCase().charCodeAt())) {
+        letter = event.data.toUpperCase();
+        if(!selectedLetter.includes(letter)){
+            if(secretWord.includes(letter)) { 
+                succes += letterSucces(secretWord, letter, selectedLetter);
+                if(succes == secretWord.length) {
+                    switchEvent(false);
+                    drawMessage(true);
+                }
+            } else {
+                mistake += letterError(mistake, letter, selectedLetter);
+                drawHorca(mistake);
+                if(mistake == 9){
+                    switchEvent(false);
+                    drawMessage(false);
+                }
+            }
+        }
+    }
+}
 
 
 /*Funciones de botones*/
@@ -112,6 +143,48 @@ function isValid(text) {
 }; 
 
 
+/* Funcion identificadora de letra*/
+
+function isALetter (codKey){
+    console.log(codKey)
+    return ((codKey >= 65 && codKey <= 90) || codKey == 209);
+}
+
+function letterSucces(word, letter, pressLetter) {
+    let newSucces = 0;
+    pressLetter.push(letter);
+    for(let i = 0; i < word.length; i++) {
+        if(word[i] === letter) {
+            drawOkLetter(i, letter, word.length);
+            newSucces++;
+        }
+    }
+    return newSucces;
+}
+
+/*Funciones del juego*/
+
+function switchEvent(status) {
+    const inputGame = document.querySelector('#inputAhorcado');
+
+    if(status){
+        inputGame.removeEventListener('input', gameManage);
+        inputGame.addEventListener('input', gameManage);
+        inputGame.removeEventListener('blur', keepFocus);
+        inputGame.addEventListener('blur', keepFocus);
+    } else {
+        inputGame.removeEventListener('input', gameManage);
+        inputGame.removeEventListener('blur', keepFocus);
+    }
+}
+
+
+function keepFocus(){
+    const inputGame = document.querySelector('#inputAhorcado');
+    inputGame.focus();
+}
+
+
 function initialPosition(lettersCanvas, lengthSecretWord) {
     const percentUnderscore = 0.07543;
     const percentSpace = 0.0431;
@@ -154,4 +227,41 @@ function drawUnderscore(lengthSecretWord) {
         }
         context.stroke();
     }
+};
+
+
+function drawOkLetter(position, letter, lengthSecretWord) {
+
+    const lettersCanvas = document.querySelector('#canvasLetters');
+    const context = lettersCanvas.getContext('2d');
+
+    if(context) {
+        const widthLettersCanvas = lettersCanvas.width;
+        const heightLettersCanvas = lettersCanvas.height;
+
+        const percentFont = 0.0862;
+        const heightPercent = 0.375;
+
+        const positionY = heightLettersCanvas * heightPercent;
+
+        let startDraw = 0;
+        let endDraw = 0;
+        let widthUnderscore = 0;
+        let widthSpace = 0;
+        let centerX = 0;
+
+        context.font = Math.round(widthLettersCanvas * percentFont) + 'px Inter';
+
+        context.strokeStyle = '#0A3871';
+        context.fillStyle = '#0A3871';
+        context.textAlign = 'center'; 
+        [startDraw, widthUnderscore, widthSpace] = initialPosition(lettersCanvas, lengthSecretWord);
+        centerX = widthUnderscore / 2;
+
+        for(let i = 1; i <= position; i++) {
+            endDraw = startDraw + widthUnderscore;
+            startDraw = endDraw + widthSpace;
+        }
+        context.fillText(letter, startDraw + centerX, positionY);
+    } 
 };

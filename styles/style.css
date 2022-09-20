@@ -6,8 +6,6 @@
 body{
    font-family: 'Inter'; 
    background-color: #F3F5FC;
-/*    width: 100vw;
-   height: 100vh; */
 }
 
 main{
@@ -81,6 +79,7 @@ main{
 
 ::placeholder {
     color: #0A3871;
+    font-size: 30px;
 }
 
 .information {
@@ -141,15 +140,24 @@ main{
 }
 
 .horca{
-    margin-top: 4rem;
-    width: 16.79rem;
-    height: 21.94rem;
+    /* margin-top: 4rem; */
+    width: calc(16.79rem * 0.5) ;
+    height: calc(21.94rem * 0.5) ;
+}
+
+#inputAhorcado {
+    background-color: #F3F5FC;
+    color: #F3F5FC;
+    border: none;
+    outline: none;
+    width: 1px;
+    height: 1px;
 }
 
 .letters{
-    margin-top: 2.5rem;
-    width: 19rem;
-    height: 7.25rem;
+    margin-top: 1.5rem;
+    width: calc(19rem * 0.8);
+    height: calc(7.25rem * 0.8);
 }
 
 footer{
@@ -173,8 +181,15 @@ footer{
         padding-top: 37.25em;
     }
 
+    .horca{
+        width: 18.375rem;
+        height: 22.5rem;
+    }
+
     .letters{
-        margin-top: 2.8125em;   
+        margin-top: 2.8125em;
+        width: 29rem;
+        height: 9.5rem;   
     }
 
     .buttons{
