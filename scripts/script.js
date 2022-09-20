@@ -162,6 +162,14 @@ function letterSucces(word, letter, pressLetter) {
     return newSucces;
 }
 
+
+function letterError(mistake, letter, pressLetter) {
+    const newError = 1;
+    pressLetter.push(letter);
+    drawErrorLetter(mistake, letter);
+    return newError;
+}
+
 /*Funciones del juego*/
 
 function switchEvent(status) {
@@ -263,5 +271,31 @@ function drawOkLetter(position, letter, lengthSecretWord) {
             startDraw = endDraw + widthSpace;
         }
         context.fillText(letter, startDraw + centerX, positionY);
+    } 
+};
+
+
+function drawErrorLetter(position, letter, lengthSecretWord) {
+
+    const lettersCanvas = document.querySelector('.letters');
+    const context = lettersCanvas.getContext('2d');
+
+    if(context) {
+        const widthLettersCanvas = lettersCanvas.width;
+        const heightLettersCanvas = lettersCanvas.height;
+
+        const percentFont = 0.0517;
+        const heightPercent = 0.7894;
+        const widthFont = Math.round(widthLettersCanvas * percentFont);
+        const centerX = Math.round((widthLettersCanvas * percentFont) / 2);
+        const positionY = heightLettersCanvas * heightPercent;
+        const startDraw = Math.round(widthLettersCanvas * 0.2694);
+
+        context.font = Math.round(widthLettersCanvas * percentFont) + 'px Inter';
+        context.strokeStyle = '#495057';
+        context.fillStyle = '#495057';
+        context.textAlign = 'center'; 
+        
+        context.fillText(letter, startDraw + (widthFont * position) + centerX, positionY);
     } 
 };
