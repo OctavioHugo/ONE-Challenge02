@@ -16,6 +16,19 @@ newGameButton.addEventListener('click', newGame);
 const desistButton = document.querySelector('.desist');
 desistButton.addEventListener('click', desist);
 
+function settings() {
+    const horcaCanvas = document.querySelector('#canvasDraw');
+    const horcaStyle = getComputedStyle(canvasDraw);
+    horcaCanvas.width = (horcaStyle.width).split('px')[0];
+    horcaCanvas.height = (horcaStyle.height).split('px')[0];
+
+    const lettersCanvas = document.querySelector('#canvasLetters');
+    const lettersStyle = getComputedStyle(canvasLetters);
+    lettersCanvas.width = (lettersStyle.width).split('px')[0];
+    lettersCanvas.height = (lettersStyle.height).split('px')[0];
+}
+
+window.onload = settings;
 
 /*Variables*/
 
@@ -70,7 +83,6 @@ function desist(){
 
 function selectWord(){
     let randomWord = words[Math.floor(Math.random()*(words.length))];
-    console.log(secretWord);
     return randomWord;
 }
 
@@ -92,10 +104,54 @@ function isValid(text) {
     var isValid = false;
     if (/^[A-Z]+$/.test(text)) {
         isValid = true;
-        console.log("paso")
     }
     if(!isValid){
         alert("Por favor ingrese una palabra utilizando solo letras sin acento");
     }
     return isValid;
 }; 
+
+
+function initialPosition(lettersCanvas, lengthSecretWord) {
+    const percentUnderscore = 0.07543;
+    const percentSpace = 0.0431;
+
+    const widthCanvas = lettersCanvas.width;
+    const widthUnderscore = Math.round(widthCanvas * percentUnderscore);
+    const widthSpace = Math.round(widthCanvas * percentSpace);
+
+    const startUndercore = Math.round(widthCanvas / 2) - Math.round((lengthSecretWord * widthUnderscore + (lengthSecretWord - 1) * widthSpace) / 2);
+
+    return [startUndercore, widthUnderscore, widthSpace]
+};
+
+
+function drawUnderscore(lengthSecretWord) {
+
+    const lettersCanvas = document.querySelector('.letters');
+    const context = lettersCanvas.getContext('2d');
+
+    if(context) {
+        const heightLettersCanvas = lettersCanvas.height;
+        const heightPercent = 0.4276;
+        const positionY = heightPercent * heightLettersCanvas;
+        let startDraw = 0;
+        let endDraw = 0;
+        let widthUnderscore = 0;
+        let widthSpace = 0;
+
+        lettersCanvas.width = lettersCanvas.width;
+        [startDraw, widthUnderscore, widthSpace] = initialPosition(lettersCanvas, lengthSecretWord);
+
+        context.lineWidth = 3;
+        context.strokeStyle = '#0A3871';
+        context.fillStyle = '#0A3871';
+        for (let i = 1; i <= lengthSecretWord; i++) {
+            endDraw = startDraw + widthUnderscore;
+            context.moveTo(startDraw, positionY);
+            context.lineTo(endDraw, positionY);
+            startDraw = endDraw + widthSpace;
+        }
+        context.stroke();
+    }
+};
