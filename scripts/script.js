@@ -299,3 +299,104 @@ function drawErrorLetter(position, letter, lengthSecretWord) {
         context.fillText(letter, startDraw + (widthFont * position) + centerX, positionY);
     } 
 };
+
+
+function drawCanvasReset() {
+
+    const horcaCanvas = document.querySelector('.horca');
+    const context = horcaCanvas.getContext('2d');
+    horcaCanvas.width = horcaCanvas.width;
+
+    if(context) {
+        const heightHorcaCanvas = horcaCanvas.height;
+        const widthHoraCanvas = horcaCanvas.width;
+        const percentLine = 0.0172;
+
+        context.lineWidth = Math.round(percentLine * widthHoraCanvas);
+        const margin = context.lineWidth / 2;
+
+        context.strokeStyle = '#0A3871';
+        context.fillStyle = '#0A3871';
+        context.lineCap = 'round';
+
+        context.beginPath();
+        context.moveTo(0 + margin, heightHorcaCanvas - margin);
+        context.lineTo(widthHoraCanvas - margin, heightHorcaCanvas - margin);
+        context.stroke();
+        context.closePath();
+    }
+};
+
+
+function drawHorca(mistake) {
+    const horcaCanvas = document.querySelector('.horca');
+    const context = horcaCanvas.getContext('2d');
+
+    if(context) {
+        percentLine = 0.0129;
+        const heightHorcaCanvas = horcaCanvas.height;
+        const widthHoraCanvas = horcaCanvas.width;
+
+        context.lineWidth = Math.round(percentLine * widthHoraCanvas);
+        const margin = context.lineWidth / 2;
+        const axisFirst = widthHoraCanvas * 0.2743;
+        const axisSecond = widthHoraCanvas * 0.833;
+        const longCord = heightHorcaCanvas * 0.125;
+        const longBody = heightHorcaCanvas * 0.375;
+        const radius = widthHoraCanvas * 0.1071;
+        const longLimbs = heightHorcaCanvas * 0.2;
+        const angleLimbs = heightHorcaCanvas * 0.0975;
+
+        context.strokeStyle = '#0A3871';
+        context.fillStyle = '#0A3871';
+        context.lineCap = 'round';
+
+        switch(mistake) {
+            case 1:
+                drawHorcaLine(context, axisFirst, margin, axisFirst, heightHorcaCanvas);
+            break;
+            case 2:
+                drawHorcaLine(context, axisFirst, margin, axisSecond, margin);
+            break;
+            case 3:
+                drawHorcaLine(context, axisSecond, margin, axisSecond, longCord);
+            break;
+            case 4:
+                drawHorcaHead(context, radius, axisSecond, longCord);
+            break;
+            case 5:
+                drawHorcaLine(context, axisSecond, longCord + (radius*2) , axisSecond, longCord + (radius*2) + longBody);
+            break;
+            case 6:
+                drawHorcaLine(context, axisSecond, longCord + (radius*2) , axisSecond - angleLimbs, longCord + (radius*2) + longLimbs);
+            break;
+            case 7:
+                drawHorcaLine(context, axisSecond, longCord + (radius*2) , axisSecond + angleLimbs, longCord + (radius*2) + longLimbs);
+            break;
+            case 8:
+                drawHorcaLine(context, axisSecond, longCord + (radius*2) + longBody , axisSecond - angleLimbs, longCord + (radius*2) + longLimbs + longBody);
+            break;
+            case 9:
+                drawHorcaLine(context, axisSecond, longCord + (radius*2) + longBody , axisSecond + angleLimbs, longCord + (radius*2) + longLimbs + longBody);
+            break;
+        }
+    }
+};
+
+
+function drawHorcaLine(context, xOrigin, yOrigin, xEnd, yEnd) {
+    context.beginPath();
+    context.moveTo(xOrigin, yOrigin);
+    context.lineTo(xEnd, yEnd);
+    context.stroke();
+    context.closePath();
+}
+
+function drawHorcaHead(context, radius, centerX, longCord) {
+    let centerY = longCord + radius;
+
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, 2*Math.PI, false);
+    context.stroke();
+    context.closePath();
+}
