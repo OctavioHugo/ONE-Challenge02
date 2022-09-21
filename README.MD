@@ -31,7 +31,7 @@ Sumado a eso realiza otras tres tareas:
 ![CSS](https://img.shields.io/badge/CSS-blue)
 ![JavaScritp](https://img.shields.io/badge/-JavaScript-yellow)
 
-Ingrese a la aplicacion haciendo [click aqui](https://OctavioHugo.github.io/ONE-Challenge01/)
+Ingrese a la aplicacion haciendo [click aqui](https://OctavioHugo.github.io/ONE-Challenge02/)
 <br>
 <br>
 ## **Autor:**
