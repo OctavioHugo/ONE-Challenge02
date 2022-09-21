@@ -399,4 +399,36 @@ function drawHorcaHead(context, radius, centerX, longCord) {
     context.arc(centerX, centerY, radius, 0, 2*Math.PI, false);
     context.stroke();
     context.closePath();
-}
+};
+
+
+function drawMessage(status) {
+    const horcaCanvas = document.querySelector('.horca');
+    const context = horcaCanvas.getContext('2d');
+
+    if (context){
+        const widthHorcaCanvas = horcaCanvas.width;
+        const heightHorcaCanvas = horcaCanvas.height;
+
+        const percentFont = 0.15;
+        const percentClear = 0.2272;
+        const heightFont = Math.round(widthHorcaCanvas * percentFont);
+        const clearFont = heightFont * percentClear;
+        const positionY = heightHorcaCanvas / 1.6;
+        const centerX = widthHorcaCanvas / 2;
+
+        context.textAlign = 'center';
+        context.font = heightFont + 'px Inter';
+        context.strokeStyle = status ? 'green' : 'red' ;
+        context.fillStyle = status ? 'green' : 'red' ;
+
+        if(status) {
+            context.clearRect(0, positionY - heightFont + clearFont, widthHorcaCanvas, heightFont * 2);
+            context.fillText('Ganaste', centerX, positionY);
+            context.fillText('Felicidades!', centerX, positionY + Math.round(widthHorcaCanvas * percentFont));
+        } else {
+            context.clearRect(0, positionY - heightFont + clearFont, widthHorcaCanvas, heightFont);
+            context.fillText('Fin del juego', centerX, positionY);
+        }
+    }
+};
