@@ -1,35 +1,3 @@
-const startGameButton = document.querySelector('.startGame');
-startGameButton.addEventListener('click', startGame);
-
-const addWordButton = document.querySelector('.addWord');
-addWordButton.addEventListener('click', addWord);
-
-const saveAndStartButton = document.querySelector('.saveAndStart');
-saveAndStartButton.addEventListener('click', saveAndStar);
-
-const cancelButton = document.querySelector('.cancel');
-cancelButton.addEventListener('click', cancel);
-
-const newGameButton = document.querySelector('.newGame');
-newGameButton.addEventListener('click', newGame);
-
-const desistButton = document.querySelector('.desist');
-desistButton.addEventListener('click', desist);
-
-function settings() {
-    const horcaCanvas = document.querySelector('#canvasDraw');
-    const horcaStyle = getComputedStyle(canvasDraw);
-    horcaCanvas.width = (horcaStyle.width).split('px')[0];
-    horcaCanvas.height = (horcaStyle.height).split('px')[0];
-
-    const lettersCanvas = document.querySelector('#canvasLetters');
-    const lettersStyle = getComputedStyle(canvasLetters);
-    lettersCanvas.width = (lettersStyle.width).split('px')[0];
-    lettersCanvas.height = (lettersStyle.height).split('px')[0];
-}
-
-window.onload = settings;
-
 /*Variables*/
 
 var words = ['SPRING', 'DOS', 'ORACLE', 'DAME', 'TRABAJO', 'POR', 'FAVOR'];
@@ -37,6 +5,91 @@ var secretWord = '';
 let succes = 0;
 let mistake = 0;
 let selectedLetter = [];
+
+function settings() {
+    const horcaCanvas = document.querySelector('#canvasDraw');
+    const horcaStyle = getComputedStyle(canvasDraw);
+    horcaCanvas.width = (horcaStyle.width).split('px')[0];
+    horcaCanvas.height = (horcaStyle.height).split('px')[0];
+    
+    const lettersCanvas = document.querySelector('#canvasLetters');
+    const lettersStyle = getComputedStyle(canvasLetters);
+    lettersCanvas.width = (lettersStyle.width).split('px')[0];
+    lettersCanvas.height = (lettersStyle.height).split('px')[0];
+
+    const startGameButton = document.querySelector('.startGame');
+    startGameButton.addEventListener('click', startGame);
+    
+    const addWordButton = document.querySelector('.addWord');
+    addWordButton.addEventListener('click', addWord);
+    
+    const saveAndStartButton = document.querySelector('.saveAndStart');
+    saveAndStartButton.addEventListener('click', saveAndStar);
+    
+    const cancelButton = document.querySelector('.cancel');
+    cancelButton.addEventListener('click', cancel);
+    
+    const newGameButton = document.querySelector('.newGame');
+    newGameButton.addEventListener('click', newGame);
+    
+    const desistButton = document.querySelector('.desist');
+    desistButton.addEventListener('click', desist);
+}
+
+window.onload = settings;
+
+
+/*Funciones de botones*/
+
+function startGame(){
+    selectedLetter.splice(0, selectedLetter.length);
+    mistake = 0;
+    succes = 0;
+    secretWord = selectWord();
+    start();
+    changePage('none','none','flex');
+}
+
+
+function addWord(){
+    changePage('none','flex','none');
+}
+
+
+function saveAndStar(){
+    const inputText = document.querySelector('.inputText')
+    let newWord = inputText.value; 
+    if(isValid(newWord)){
+        changePage('none','none','flex');
+        words.push(newWord);
+        inputText.value = '';
+        secretWord = newWord;
+        mistake = 0;
+        succes = 0;
+        start();
+    }
+}
+
+
+function cancel(){
+    changePage('flex','none','none');
+}
+
+
+function newGame(){
+    selectedLetter.splice(0, selectedLetter.length);
+    mistake = 0;
+    succes = 0;
+    switchEvent(true);
+    secretWord = selectWord();
+    start();
+}
+
+
+function desist(){
+    changePage('flex','none','none');
+}
+
 
 /*Función de administracion del juego*/
 
@@ -67,47 +120,6 @@ function gameManage(event) {
 }
 
 
-/*Funciones de botones*/
-
-function startGame(){
-    changePage('none','none','flex');
-    secretWord = selectWord();
-}
-
-
-function addWord(){
-    changePage('none','flex','none');
-}
-
-
-function saveAndStar(){
-    const inputText = document.querySelector('.inputText')
-    let newWord = inputText.value; 
-    if(isValid(newWord)){
-        changePage('none','none','flex');
-        words.push(newWord);
-        console.log(newWord);
-        console.log(words);
-        inputText.value = '';
-        secretWord = newWord;
-    }
-}
-
-
-function cancel(){
-    changePage('flex','none','none');
-}
-
-
-function newGame(){
-    secretWord = selectWord()
-    console.log(secretWord);
-}
-
-
-function desist(){
-    changePage('flex','none','none');
-}
 
 
 /*Funcion palabra secreta*/
@@ -127,7 +139,20 @@ function changePage (home, dictionary, game) {
     homePage.style.display = home;
     dictionaryPage.style.display = dictionary;
     gamePage.style.display = game;
-}
+    if(dictionary === 'flex'){
+        const inputText = document.querySelector('.inputText');
+        inputText.focus();
+        inputText.value = '';
+    }
+    if (game === 'flex') {
+        const inputGame = document.querySelector('#inputAhorcado');
+        inputGame.focus();
+        switchEvent(true);
+    } else {
+        switchEvent(false);
+    }
+};
+
 
 /*Validador*/
 
@@ -146,7 +171,6 @@ function isValid(text) {
 /* Funcion identificadora de letra*/
 
 function isALetter (codKey){
-    console.log(codKey)
     return ((codKey >= 65 && codKey <= 90) || codKey == 209);
 }
 
@@ -185,6 +209,16 @@ function switchEvent(status) {
         inputGame.removeEventListener('blur', keepFocus);
     }
 }
+
+
+function start() {
+    drawCanvasReset();
+    drawUnderscore(secretWord.length)
+
+    const inputGame = document.querySelector('#inputAhorcado');
+    inputGame.value = '';
+    inputGame.focus();
+};
 
 
 function keepFocus(){
